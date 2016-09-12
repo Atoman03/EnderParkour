@@ -4,6 +4,7 @@ namespace EnderParkour;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\entity\Entity;
+use pocketmine\command\ConsoleCommandSender;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerInteractEvent;
@@ -22,15 +23,61 @@ class Main extends PluginBase implements Listener{
 
     public function onEnable(){
         $this->getServer()->info(C::BLUE. "EnderParkour has been enabled!");
-        $this->parkour = newConfig($this->getDataFolder(). "parkour.yml", Config::YAML);
+        $this->parkour = new Config($this->getDataFolder(). "parkour.yml", Config::YAML);
+        $this->config = new Config($this->getDataFolder(). "config.yml", Config::YAML, array([
+            "#EnderParkour Config",
+            'CheckpointTextSign: "[Checkpoint]"',
+            'CheckpointMsg: "Checkpoint set!"',
+            'FinishTextSign: "[Finish]"',
+            'FinishMsg: "You have finished teh parkour!"',
+            'FinishPlayerCmd: "spawn"',
+            'FinishConsoleCmd: "say {PLAYER} finished parkour!"',
+            'TeleportToLastCheckpointOnVoid: "true"',
+            'NoVoidWorld: "world"'
+        ]));
         $this->saveDefaultConfig();
     }
 
     public function onDisable(){
         $this->getServer()->info(C::BLUE. "EnderParkour has been disabled!:o");
-        $this->saveDefaultConfig);
+        $this->saveDefaultConfig();
     }
 
     public function Checkpoints(PlayerInteractEvent $event){
-    //WIP
+        $player = $event->getPlayer();
+        $block = $event->getBlock();
+        $x = $player->getX();
+        $y = $player->getY();
+        $z = $player->getZ();
+        $pn = $event->getPlayer()->getName();
+        if($block->getId() == 63 or 68){
+            $signature = $this->getLevel()->getTile(block);
+            if(!($signature instanceof Sign)) return;
+            $line = $sign->getText();
+            if($signature[0] == $this->config->get("CheckpointTextSign")){
+                $this->parkour->set($pn,array($x,$y,$z,$player->getLevel()->getName()));
+                $this->parkour->save();
+                $player->sendMessage($this->config->get("CheckpointMsg"));
+            }
+            if($signature[0] == $this->config->get("FinishTextSign")){
+                $player->sendMessage($this->config->get("FinishMsg"));
+                $this->getServer()->dispatchCommand($player, $this->config->get("FinishPlayerCmd"));
+                $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $this->config->get("FinishConsoleCmd"), str_ireplace("{PLAYER}", $pn));
+            }
+        }
     }
+    
+    public function noVoid(PlayerMoveEvent $event){
+        $player = $event->getPlayer();
+        $pn = $player->getName();
+        if($player->getLevel()->getName() == $this->config->get("NoVoidWorld")){
+            if($event->getTo()->getFloorY() < 0.5){
+                $cppos = $this->parkour->get($pn);
+		$player->teleport(new Vector3($cppos[0],$cppos[1],$cppos[2],$this->getServer()->getLevelByName($cppos[3])));
+                if(empty($this->parkour->get($player))){
+                    $this->getServer()->dispatchCommand($player, $this->parkour->get("FinishPlayerCmd"));
+                }
+            }
+        }
+    }
+}
