@@ -10,6 +10,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\item\Item;
 use pocketmine\tile\Tile;
+use pocketmine\block\Block;
 use pocketmine\tile\Sign;
 use pocketmine\utils\Config;
 use pocketmine\math\Vector3;
@@ -22,19 +23,10 @@ use pocketmine\utils\TextFormat as C;
 class Main extends PluginBase implements Listener{
 
     public function onEnable(){
-        $this->getServer()->info(C::BLUE. "EnderParkour has been enabled!");
+        $this->getLogger()->info(C::BLUE. "EnderParkour has been enabled!");
+        $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->parkour = new Config($this->getDataFolder(). "parkour.yml", Config::YAML);
-        $this->config = new Config($this->getDataFolder(). "config.yml", Config::YAML, array([
-            "#EnderParkour Config",
-            'CheckpointTextSign: "[Checkpoint]"',
-            'CheckpointMsg: "Checkpoint set!"',
-            'FinishTextSign: "[Finish]"',
-            'FinishMsg: "You have finished teh parkour!"',
-            'FinishPlayerCmd: "spawn"',
-            'FinishConsoleCmd: "say {PLAYER} finished parkour!"',
-            'TeleportToLastCheckpointOnVoid: "true"',
-            'NoVoidWorld: "world"'
-        ]));
+        $this->config = new Config($this->getDataFolder(). "config.yml", Config::YAML);
         $this->saveDefaultConfig();
     }
 
@@ -75,7 +67,7 @@ class Main extends PluginBase implements Listener{
                 $cppos = $this->parkour->get($pn);
 		$player->teleport(new Vector3($cppos[0],$cppos[1],$cppos[2],$this->getServer()->getLevelByName($cppos[3])));
                 if(empty($this->parkour->get($player))){
-                    $this->getServer()->dispatchCommand($player, $this->parkour->get("FinishPlayerCmd"));
+                    $this->getServer()->dispatchCommand($player, $this->parkour->get("VoidPlayerCmd"));
                 }
             }
         }
