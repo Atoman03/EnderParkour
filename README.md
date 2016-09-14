@@ -16,13 +16,21 @@ __5. Super easy to use and User Interface! :P (UI)__
 
 ##Config
 `````
-"#EnderParkour Config",
-'CheckpointTextSign: "[Checkpoint]"',
-'CheckpointMsg: "Checkpoint set!"',
-'FinishTextSign: "[Finish]"',
-'FinishMsg: "You have finished teh parkour!"',
-'FinishPlayerCmd: "spawn"',
-'FinishConsoleCmd: "say {PLAYER} finished parkour!"',
-'TeleportToLastCheckpointOnVoid: "true"',
-NoVoidWorld: "world"'
+#EnderParkour Config
+
+#Checkpoints Stuff
+CheckpointTextSign: "[Checkpoint]"
+CheckpointMsg: "Checkpoint set!"
+
+#Finish Parkour Stuff
+FinishTextSign: "[Finish]"
+FinishMsg: "You have finished teh parkour!"
+FinishPlayerCmd: "spawn"
+FinishConsoleCmd: "say {PLAYER} finished parkour!"
+
+#Void Stuff
+TeleportToLastCheckpointOnVoid: "true"
+NoVoidWorld: "world"
+#When Player has no Checkpoint
+VoidPlayerCmd: "hub"
 `````
