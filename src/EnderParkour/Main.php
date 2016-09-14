@@ -43,15 +43,15 @@ class Main extends PluginBase implements Listener{
         $z = $player->getZ();
         $pn = $event->getPlayer()->getName();
         if($block->getId() == 63 or 68){
-            $signature = $this->getLevel()->getTile(block);
+            $signature = $player->getLevel()->getTile($block);
             if(!($signature instanceof Sign)) return;
-            $line = $sign->getText();
-            if($signature[0] == $this->config->get("CheckpointTextSign")){
+            $line = $signature->getText();
+            if($line[0] == $this->config->get("CheckpointTextSign")){
                 $this->parkour->set($pn,array($x,$y,$z,$player->getLevel()->getName()));
                 $this->parkour->save();
                 $player->sendMessage($this->config->get("CheckpointMsg"));
             }
-            if($signature[0] == $this->config->get("FinishTextSign")){
+            if($line[0] == $this->config->get("FinishTextSign")){
                 $player->sendMessage($this->config->get("FinishMsg"));
                 $this->getServer()->dispatchCommand($player, $this->config->get("FinishPlayerCmd"));
                 $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $this->config->get("FinishConsoleCmd"), str_ireplace("{PLAYER}", $pn));
