@@ -1,0 +1,15 @@
+#EnderParkour Config
+
+#Checkpoints Stuff
+CheckpointTextSign: "[Checkpoint]"
+CheckpointMsg: "Checkpoint set!"
+
+#Finish Parkour Stuff
+FinishTextSign: "[Finish]"
+FinishMsg: "You have finished teh parkour!"
+FinishPlayerCmd: "spawn"
+FinishConsoleCmd: "say {PLAYER} finished parkour!"
+
+#Void Stuff
+TeleportToLastCheckpointOnVoid: "true"
+NoVoidWorld: "world"
