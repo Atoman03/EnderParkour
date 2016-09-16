@@ -4,12 +4,15 @@
 #Checkpoints Stuff
 CheckpointTextSign: "[Checkpoint]"
 CheckpointMsg: "Checkpoint set!"
+TpedToCheckpointMsg: "Teleported to last checkpoint!"
 
 #Finish Parkour Stuff
 FinishTextSign: "[Finish]"
 FinishMsg: "You have finished teh parkour!"
 FinishPlayerCmd: "spawn"
 FinishConsoleCmd: "say {PLAYER} finished parkour!"
+#True or False
+DelParkourDataWhenFinish: "true"
 
 #Void Stuff
 TeleportToLastCheckpointOnVoid: "true"
