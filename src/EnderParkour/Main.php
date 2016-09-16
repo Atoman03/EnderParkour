@@ -54,6 +54,10 @@ class Main extends PluginBase implements Listener{
                 $player->sendMessage($this->getConfig()->get("FinishMsg"));
                 $this->getServer()->dispatchCommand($player, $this->getConfig()->get("FinishPlayerCmd"));
                 $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $this->getConfig()->get("FinishConsoleCmd"), str_ireplace("{PLAYER}", $pn));
+                if($this->getConfig()->get("DelParkourDataWhenFinish") == "true"){
+                    $this->parkour->delete($pn);
+                    $this->parkour->save();
+                }
             }
         }
     }
@@ -73,8 +77,10 @@ class Main extends PluginBase implements Listener{
         if($player->getLevel()->getName() == $this->getConfig()->get("NoVoidWorld")){
             if($event->getTo()->getFloorY() < 0.5){
                 $cppos = $this->parkour->get($pn);
-		$player->teleport(new Vector3($cppos[0],$cppos[1],$cppos[2],$this->getServer()->getLevelByName($cppos[3])));
-                if(empty($this->parkour->get($player))){
+                if(is_array($cppos)){
+                        $player->teleport(new Vector3($cppos[0],$cppos[1],$cppos[2],$this->getServer()->getLevelByName($cppos[3])));
+                        $player->sendMessage($this->getConfig()->get("TpedToCheckpointMsg"));
+                }else{
                     $this->getServer()->dispatchCommand($player, $this->getConfig()->get("VoidPlayerCmd"));
                 }
             }
