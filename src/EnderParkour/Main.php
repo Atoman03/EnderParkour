@@ -54,10 +54,6 @@ class Main extends PluginBase implements Listener{
                 $player->sendMessage($this->getConfig()->get("FinishMsg"));
                 $this->getServer()->dispatchCommand($player, $this->getConfig()->get("FinishPlayerCmd"));
                 $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $this->getConfig()->get("FinishConsoleCmd"), str_ireplace("{PLAYER}", $pn));
-                if($this->getConfig()->get("DelParkourDataWhenFinish") == "true"){
-                    $this->parkour->delete($pn);
-                    $this->parkour->save();
-                }
             }
         }
     }
