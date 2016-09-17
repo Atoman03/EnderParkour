@@ -1,7 +1,18 @@
 # EnderParkour
 An Advanced Parkour Plugin for Genisys and other Softwares! A plugin for Pocket_Servers
 
-**Status? Done, needs testing!**
+_**Sections**_
+
+_[Status](https://github.com/CaptainDuck/EnderParkour#status)_
+
+_[Features](https://github.com/CaptainDuck/EnderParkour#features)_
+
+_[Config File](https://github.com/CaptainDuck/EnderParkour#config)_
+
+_[Ideas/Being worked on](https://github.com/CaptainDuck/EnderParkour#ideas)_
+
+##Status
+**Done! Tested!**
 
 ##Features
 __1. Checkpoints! Just create a sign with a text on the 1st Line! (Text editable in config)__
@@ -34,3 +45,15 @@ NoVoidWorld: "world"
 #When Player has no Checkpoint
 VoidPlayerCmd: "hub"
 `````
+
+##Ideas
+
+***Create a function/command that lets people create a Parkour world that will handle all plugin's features.**
+
+***Parkour Countdown.**
+
+***Deletes the data/parkour checkpoints upon parkour finish.**
+
+_**More will be added soon, stay tuned! :D**_
+
+_**These ideas are being worked and are planned for future updates :D, You could see the progress at this [Branch](https://github.com/CaptainDuck/EnderParkour/tree/V1.1.0).**_
