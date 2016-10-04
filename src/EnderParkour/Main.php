@@ -26,6 +26,7 @@ class Main extends PluginBase implements Listener{
         $this->getLogger()->info(C::BLUE. "EnderParkour has been enabled!");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->parkour = new Config($this->getDataFolder(). "parkour.yml", Config::YAML);
+        @mkdir($this->getDataFolder(). "worlds/");
         $this->saveDefaultConfig();
     }
 
@@ -55,21 +56,28 @@ class Main extends PluginBase implements Listener{
                 $this->getServer()->dispatchCommand($player, $this->getConfig()->get("FinishPlayerCmd"));
                 $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $this->getConfig()->get("FinishConsoleCmd"), str_ireplace("{PLAYER}", $pn));
                 if($this->getConfig()->get("DelParkourDataWhenFinish") == "true"){
-                    $this->parkour->delete($pn);
+                    $this->parkour->remove($pn);
                     $this->parkour->save();
                 }
             }
         }
     }
     
-    #public function onCommand(CommandSender $sender,Command $cmd,$label,array $args){
-        #switch($cmd->getName()){
-            #case "parkour":
-                #if(!(isset($args[0]))){
-                #$sender->sendMessage(C::ITALIC. "Parkour Commands!\n" .C::ITAlIC. "/parkour create <world name> -> Creates a parkour world");
-            #}
-        #}
-    #}
+    public function onCommand(CommandSender $sender,Command $cmd,$label,array $args){
+        switch($cmd->getName()){
+            case "parkour":
+                if(!(isset($args[0]))){
+                    $sender->sendMessage(C::ITALIC. "Parkour Commands!\n" .C::ITAlIC. "/parkour create <world name> -> Creates a parkour world!");
+            }
+            if($args[0] == "create" || isset($args[1]) || $sender->hasPermission("enderparkour.cmd.create") || !file_exists($this->getDataFolder(). "worlds/". $args[0]. ".yml")){
+                $this->worlds = new Config($this->getDataFolder(). "worlds/". $args[0]. ".yml", array(
+                    "world" => $args[0]
+                ));
+                $sender->sendMessage(C::ITALIC. C::GREEN. "EnderParkour >> Successfully created a Parkour world named". $args[0]. "!");
+                
+            }
+        }
+    }
     
     public function noVoid(PlayerMoveEvent $event){
         $player = $event->getPlayer();
