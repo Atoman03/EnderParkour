@@ -1,5 +1,11 @@
 name: EnderParkour
 author: CaptainDuck
-version: 1.0.0
+version: 2.0.0
 api: [2.0.0]
 main: EnderParkour\Main
+commands:
+ enderparkour:
+  description: "Main EnderParkour Command!"
+  usage: "/enderparkour"
+  permission: enderparkour.cmd
+  aliases: [parkour, pk, parkuor]
