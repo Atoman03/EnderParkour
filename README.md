@@ -5,6 +5,8 @@ _**Sections**_
 
 _[Status](https://github.com/CaptainDuck/EnderParkour#status)_
 
+_[Download](https://github.com/CaptainDuck/EnderParkour#download)_
+
 _[Features](https://github.com/CaptainDuck/EnderParkour#features)_
 
 _[Config File](https://github.com/CaptainDuck/EnderParkour#config)_
@@ -24,6 +26,9 @@ __3. When a player falls into a void (World/level editable in config), the playe
 __4. Custom Finish and Checkpoint messages! (Editable in config)__
 
 __5. Super easy to use and User Interface! :P (UI)__
+
+##Download
+**[Download Link](https://sellfy.com/p/0Zda/)**
 
 ##Config
 `````
@@ -48,12 +53,12 @@ VoidPlayerCmd: "hub"
 
 ##Ideas
 
-***Create a function/command that lets people create a Parkour world that will handle all plugin's features.**
+***Create a function/command that lets people create a Parkour world that will handle all plugin's features.***
 
-***Parkour Countdown.**
+***Parkour Countdown.***
 
-***Deletes the data/parkour checkpoints upon parkour finish.**
+***Deletes the data/parkour checkpoints upon parkour finish.***
 
-_**More will be added soon, stay tuned! :D**_
+_**More will be added soon, stay tuned! :D***_
 
 _**These ideas are being worked and are planned for future updates :D, You could see the progress at this [Branch](https://github.com/CaptainDuck/EnderParkour/tree/V1.1.0).**_
