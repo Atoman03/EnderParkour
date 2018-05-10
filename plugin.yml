@@ -1,5 +1,5 @@
 name: EnderParkour
 author: CaptainDuck
 version: 1.0.0
-api: [2.0.0]
+api: [2.0.0, 3.0.0-ALPHA11]
 main: EnderParkour\Main
